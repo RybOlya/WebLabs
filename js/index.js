@@ -5,17 +5,15 @@ let msg = document.getElementById("msg");
 let dwelling = document.getElementById("dwelling");
 let add = document.getElementById("add");
 let priceInput = document.getElementById("priceInput");
-let floorsInput = document.getElementById("floorsInput");
 let heatingInput = document.getElementById("heatingInput");
 let locationInput = document.getElementById("locationInput");
 let dwellingType = document.getElementById("dwellingType");
-
+let formEl = document.getElementById("form");
 let addedDwelling = document.getElementById("addedDwelling");
 var submitted = form.addEventListener("submit", (e) => {
   e.preventDefault();
   formValidation();
 });
-
 let formValidation = () => {
   if (titleInput.value == "") {
     console.log("failure");
@@ -42,10 +40,42 @@ let acceptData = () => {
     description: description.value,
     location: locationInput.value,
     price: priceInput.value,
-    floors: floorsInput.value,
     heating: heatingInput.value,
   });
-  localStorage.setItem("dwellings", JSON.stringify(dwellings));
+  //localStorage.setItem("dwellings", JSON.stringify(dwellings));
+  
+  var server_data = [
+    {"type": dwellingType.value},
+    {"name": titleInput.value},
+    {"image": image},
+    {"description": description.value},
+    {"location": locationInput.value},
+    {"price": priceInput.value},
+    {"heating": heatingInput.value}
+   ];
+  $.ajax({
+    type: "POST",
+    url: "/dwelling",
+    data: JSON.stringify(server_data),
+    contentType: "application/json",
+    dataType: 'json',
+    success: function(res) {
+      console.log(res);
+      alert(res);
+  }
+  });
+  // const formData = new FormData(formEl);
+  // const data = Object.fromEntries(formData);
+  // fetch('http://127.0.0.1:5000/dwelling',{
+  //   method:'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(data)
+  // }).then(res => res.json())
+  // .then(data => console.log(data))
+  // .catch(error => console.log(error));
+
   createDwelling();
 };
 
@@ -55,7 +85,6 @@ let resetForm = () => {
   titleInput.value = "";
   description.value = "";
   locationInput.value = "";
-  activeIMG.src = "";
   priceInput.value = "";
   heatingInput.value = "";
 };
@@ -94,7 +123,6 @@ let buyDwelling = (e) => {
 
   priceInput.value = selectedDwelling.children[4].innerHTML;
   fin_price += parseInt(selectedDwelling.children[4].innerHTML);
-
   document.getElementById("total_price").value = fin_price;
   console.log(fin_price);
   return (addedDwelling.innerHTML += `

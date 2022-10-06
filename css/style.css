@@ -21,7 +21,6 @@ body {
   width: 100%;
   border: 2px solid #1e56a0;
   min-height: 400px;
-  height: fit-content;
   padding: 15px;
   margin: auto;
 }
@@ -29,6 +28,7 @@ body {
   display: grid;
   align-items: start;
   grid-template-columns: 70% 30%;
+  gap: 9px;
 }
 #total_price {
   border: none;
@@ -80,7 +80,8 @@ header .fa-plus {
 }
 
 #dwelling .card {
-  height: 300px;
+  min-height: 600px;
+  height: max-content;
   border: 3px solid #1e56a0;
   background-color: #d6e4f0e6;
   border-radius: 6px;
