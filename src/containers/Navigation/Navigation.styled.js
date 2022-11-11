@@ -16,7 +16,7 @@ ul {
     align-items: center;
     justify-content: left;
     margin: 0;
-    font-family: 'M PLUS 1p', sans-serif;
+    font-family: 'Saira Condensed', sans-serif;
     font-weight:200;
 }
 
