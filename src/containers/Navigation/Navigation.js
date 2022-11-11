@@ -5,10 +5,11 @@ import {
   Route,
   NavLink,
 } from "react-router-dom";
-import { LinkingWrapper } from "./Navigation.styles";
+import { LinkingWrapper } from "./Navigation.styled";
+
 import Home from "../Home/Home";
 import Catalog from "../Catalog/Catalog";
-import { StyledHeader } from "./Navigation.styles";
+import { StyledHeader } from "./Navigation.styled";
 
 import { IconsWrapper, IconBase } from "../../components/Icon/Icon.styled";
 
@@ -17,6 +18,7 @@ import {
   HomeOutlined,
   ShoppingOutlined,
 } from "@ant-design/icons";
+import ItemPage from "containers/ItemPage/ItemPage";
 
 const Navigation = () => (
   <Router>
@@ -38,33 +40,27 @@ const Navigation = () => (
               </NavLink>
             </li>
             <li>
-              <NavLink exact to="/services" activeClassName="selected">
-                services
-              </NavLink>
-            </li>
-            <li>
-              <NavLink exact to="/contact" activeClassName="selected">
-                contact us
+              <NavLink exact to="/cart" activeClassName="selected">
+                cart
               </NavLink>
             </li>
           </ul>
         </div>
         <div>
-          <IconsWrapper>
-            <IconBase component={SearchOutlined} color="#b89367" />
+          <IconsWrapper>    
             <IconBase component={ShoppingOutlined} color="#6a3e19" />
           </IconsWrapper>
         </div>
       </StyledHeader>
       <Switch>
-        <Route path="/catalog">
+        <Route exact path="/catalog">
           <Catalog />
         </Route>
-        <Route path="/services">
-          <div>Hello it is blog</div>
+        <Route path="/catalog/:productHref">
+          <ItemPage />
         </Route>
-        <Route path="/contact">
-          <div>Hello it is contact</div>
+        <Route path="/cart">
+          <div>Hello it is cart</div>
         </Route>
         <Route path="/">
           <Home />
