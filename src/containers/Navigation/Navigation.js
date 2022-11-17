@@ -10,7 +10,7 @@ import { LinkingWrapper } from "./Navigation.styled";
 import Home from "../Home/Home";
 import Catalog from "../Catalog/Catalog";
 import { StyledHeader } from "./Navigation.styled";
-
+import Cart from "components/Cart/Cart";
 import { IconsWrapper, IconBase } from "../../components/Icon/Icon.styled";
 
 import {
@@ -40,15 +40,17 @@ const Navigation = () => (
               </NavLink>
             </li>
             <li>
-              <NavLink exact to="/cart" activeClassName="selected">
+              <NavLink exact to="/carts" activeClassName="selected">
                 cart
               </NavLink>
             </li>
           </ul>
         </div>
         <div>
-          <IconsWrapper>    
-            <IconBase component={ShoppingOutlined} color="#6a3e19" />
+          <IconsWrapper>
+            <NavLink exact to="/cart" activeClassName="selected">
+              <IconBase component={ShoppingOutlined} color="#6a3e19" />
+            </NavLink>
           </IconsWrapper>
         </div>
       </StyledHeader>
@@ -59,8 +61,8 @@ const Navigation = () => (
         <Route path="/catalog/:productHref">
           <ItemPage />
         </Route>
-        <Route path="/cart">
-          <div>Hello it is cart</div>
+        <Route path="/carts">
+        <Home />
         </Route>
         <Route path="/">
           <Home />

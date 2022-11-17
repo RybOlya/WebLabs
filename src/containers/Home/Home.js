@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-import CatalogApart from "../../Icons/render_1_karmanskoho.jpg";
-import CatalogRetail from "../../Icons/retail_1.jpg";
-import CatalogCottage from "../../Icons/render_2_konovaltsia.jpg";
-import CatalogHouse from "../../Icons/Yaroslavenka_23a_1_1.jpg";
-
 import {
   SectionWrapper,
   StyledText,
@@ -25,26 +20,26 @@ import Data from "../Catalog/Data";
 const itemsPerPage = 4;
 let arrayForHoldingItems = [];
 const category = [
-  {
-    type: "Apartments",
-    image: CatalogApart,
-    width: "200px",
-  },
-  {
-    type: "Retail",
-    image: CatalogRetail,
-    width: "300px",
-  },
-  {
-    type: "Cottages",
-    image: CatalogCottage,
-    width: "300px",
-  },
-  {
-    type: "Houses",
-    image: CatalogHouse,
-    width: "43.75rem",
-  },
+  // {
+  //   type: "Apartments",
+  //   image: CatalogApart,
+  //   width: "200px",
+  // },
+  // {
+  //   type: "Retail",
+  //   image: CatalogRetail,
+  //   width: "300px",
+  // },
+  // {
+  //   type: "Cottages",
+  //   image: CatalogCottage,
+  //   width: "300px",
+  // },
+  // {
+  //   type: "Houses",
+  //   image: CatalogHouse,
+  //   width: "43.75rem",
+  // },
 ];
 
 

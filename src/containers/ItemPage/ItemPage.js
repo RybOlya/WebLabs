@@ -1,4 +1,4 @@
-import React from "react";
+import React,{ useEffect, useState }from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   ItemWrapper,
@@ -14,23 +14,27 @@ import {
   Col,
   Tag,
   Layout,
-  Button,
-  Space,
-  Dropdown,
-  Select,
   InputNumber,
 } from "antd";
-import { DownOutlined } from "@ant-design/icons";
-import Data from "../Catalog/Data";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 
 const onChange = (value) => {
   console.log("changed", value);
 };
 function ItemPage() {
+  const [dwelling, setDwelling] = useState();
+  useEffect(() => {
+    console.log("Fetching...");
+    fetch('http://localhost:8000/api/dwelling/')
+      .then((response) => response.json())
+      .then((data) =>{
+        console.log(data.dwelling)
+        setDwelling(data.dwelling);
+      });
+  },[]);
   const { productHref } = useParams();
-  const thisProduct = Data.find((prod) => prod.href === productHref);
+  const thisProduct = dwelling ? dwelling.find((prod) => prod.href === productHref) : [];
 
   return (
     <div>
@@ -46,7 +50,7 @@ function ItemPage() {
                 borderRadius: "10px",
               }}
               alt="example"
-              src={thisProduct.image}
+              src={thisProduct.imageSrc}
             />
           </ItemImage>
         </Col>

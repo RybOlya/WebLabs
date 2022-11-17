@@ -1,24 +1,52 @@
 import React, { useState, useEffect } from "react";
-
-import Data from "./Data";
 import Buttons from "./Buttons";
-import CardItem from "../../components/CardItem/CardItem";
 import { Row, Col } from "antd";
-
+import axios from 'axios';
 import Items from "./Items";
 import { StyledButton } from "containers/ItemPage/ItemPage.styled";
-import { DownSquareFilled } from "@ant-design/icons";
+import dwelling from "./GetData";
+import LoadingSpinner from "components/LoadingSpinner/LoadingSpinner";
 const itemsPerPage = 8;
 let arrayForHoldingItems = [];
 const Catalog = () => {
-  const [itemsToShow, setItemsToShow] = useState(Data);
+  const [dwelling, setDwelling] = useState();
+  const [isLoading, setIsLoading] = useState(false);
+  const [itemsToShow, setItemsToShow] = useState(dwelling);
   const [next, setNext] = useState(8);
+  //const [isLoading, setIsLoading] = useState(false);
   const [item, setItem] = useState(itemsToShow);
+  const [errorMessage, setErrorMessage] = useState("");
+  // useEffect(() => {
+  //   console.log("Fetching...");
+  //   fetch('http://localhost:8000/api/dwelling/')
+  //     .then((response) => response.json())
+  //     .then((data) =>{
+  //       console.log(data.dwelling)
+  //       setDwelling(data.dwelling);
+  //     });
+  // },[]);
+  const handleFetch = () => {
+  setIsLoading(true);
+  axios.get("http://localhost:8000/api/dwelling/")
+  .then(response => {
+    console.log(response.data.dwelling);
+    setDwelling(response.data.dwelling);
+    setIsLoading(false);
+    setItem(dwelling);
+  }, error => {
+    console.log(error);
+    setIsLoading(false);
+  });
+};
+
+
   const loopWithSlice = (start, end) => {
-    const slicedItems = Data.slice(start, end);
+    const slicedItems = dwelling ? dwelling.slice(start, end): [];
     arrayForHoldingItems = [...arrayForHoldingItems, ...slicedItems];
     setItem(arrayForHoldingItems);
   };
+
+
 
   useEffect(() => {
     loopWithSlice(0, itemsPerPage);
@@ -30,20 +58,20 @@ const Catalog = () => {
   };
 
   const [title, setTitle] = useState("");
-  const menuItems = [...new Set(itemsToShow.map((Val) => Val.category))];
+  const menuItems = [...new Set(dwelling ? dwelling.map((Val) => Val.category):[])];
   const filterItem = (curcat) => {
-    const newItem = itemsToShow.filter((newVal) => {
+    const newItem = dwelling?dwelling.filter((newVal) => {
       return newVal.category === curcat;
-    });
+    }):[];
     setItem(newItem);
   };
 
   const searchItem = (e) => {
     const keyword = e.target.value;
     if (keyword !== "") {
-      const newItem = Data.filter((newVal) => {
+      const newItem = dwelling ? dwelling.filter((newVal) => {
         return newVal.title.toLowerCase().startsWith(keyword.toLowerCase());
-      });
+      }):[];
       setItem(newItem);
     } else {
       setItem(itemsToShow);
@@ -63,7 +91,7 @@ const Catalog = () => {
 
   const handleSort = (value) => {
     if (value == "none") {
-      setItem([...Data]);
+      setItem([...itemsToShow]);
     } else {
       let toType, toAscending;
       switch (value) {
@@ -84,18 +112,22 @@ const Catalog = () => {
           toAscending = false;
           break;
       }
-      let current = [...Data];
+      let current = [...dwelling];
       current.sort((a, b) =>
         toType
           ? compare(a.title, b.title, toAscending)
           : compare(a.price, b.price, toAscending)
       );
+      console.log(current)
       setItem([...current]);
     }
   };
-
+  const renderDwellings = (
+<Items itemsToRender={item} />
+  )
   return (
     <>
+
       <div className="container-fluid">
         <div className="row">
           <Row style={{ margin: "30px"}}>
@@ -113,6 +145,7 @@ const Catalog = () => {
                 filterItem={filterItem}
                 setItem={setItem}
                 menuItems={menuItems}
+                dwelling={dwelling}
               />
             </Col>
             <Col span={4}>
@@ -130,8 +163,11 @@ const Catalog = () => {
               </select>
             </Col>
           </Row>
-          <Items itemsToRender={item} />
+          {isLoading ? <LoadingSpinner /> : renderDwellings}
           <Row>
+          <button onClick={handleFetch} disabled={isLoading}>
+        Fetch Users
+      </button>
             <Col
               span={24}
               style={{ display: "flex", justifyContent: "center" }}

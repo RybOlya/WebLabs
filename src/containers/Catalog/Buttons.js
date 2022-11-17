@@ -1,10 +1,10 @@
 import React from "react";
-import Data from "./Data";
 import {Radio} from 'antd'
 import { StyledButton } from "../ItemPage/ItemPage.styled";
-const Buttons = ({ filterItem, setItem, menuItems }) => {
+const Buttons = ({ filterItem, setItem, menuItems, dwelling }) => {
   return (
     <>
+    
         {menuItems.map((Val, id) => {
           return (
             <StyledButton style={{backgroundColor: "#6a3e19",borderColor:"#6a3e19",color:"white"}}
@@ -17,7 +17,7 @@ const Buttons = ({ filterItem, setItem, menuItems }) => {
           );
         })}
         <StyledButton style={{backgroundColor: "#6a3e19",borderColor:"#6a3e19",color:"white"}}
-          onClick={() => setItem(Data)}
+          onClick={() => setItem(dwelling)}
         >
           All
         </StyledButton>

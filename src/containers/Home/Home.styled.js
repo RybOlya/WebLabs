@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Button } from 'antd';
-import HeaderApart from "../../Icons/render_3_kovalska.jpg";
+//import HeaderApart from "../../Icons/render_3_kovalska.jpg";
 export const SectionWrapper = styled.div`
     display: flex;
-    background-image:url(${HeaderApart});
+    background-image: url("https://symmetry.com.ua/projects/images/2021_Kovalska/render_3.jpg");
     height: 700px;
     background-size: cover;
     justify-content: space-between;

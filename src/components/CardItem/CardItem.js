@@ -18,18 +18,18 @@ const CardItem = ({
 }) => (
     <Card
       hoverable
-      style={{ width: "98%", borderRadius: "10px" }}
+      style={{ width: "98%", borderRadius: "10px", height: "700px"}}
       cover={
         <img
           style={{objectFit: "cover", borderRadius: "10px",width: "100%", height: "337px"}}
-          alt="example"
+          alt={href}
           src={imageSrc}
         />
       }
     >
       <p>{category}</p>
       <Meta
-        style={{ minHeight: "150px" }}
+        style={{ minHeight: "200px" }}
         title={title}
         description={description}
       />

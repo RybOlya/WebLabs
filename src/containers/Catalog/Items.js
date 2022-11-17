@@ -19,7 +19,7 @@ const Items = ({ itemsToRender }) => {
               title={Val.title}
               description={Val.description}
               location={Val.location}
-              imageSrc={Val.image}
+              imageSrc={Val.imageSrc}
               price={Val.price}
               id={Val.idx}
             />
