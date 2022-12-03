@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import Icon from '@ant-design/icons';
-
 export const LinkingWrapper = styled.div`
 .selected {
     :after {
@@ -16,11 +14,9 @@ ul {
     align-items: center;
     justify-content: left;
     margin: 0;
-    font-family: 'M PLUS 1p', sans-serif;
+    font-family: 'Saira Condensed', sans-serif;
     font-weight:200;
 }
-
-
 li {
     display: inline-block;
     padding: 5px 5px 10px 5px;
@@ -34,9 +30,7 @@ li {
         color: black;
     }
 }
-
 `
-
 export const StyledHeader = styled.div`
     display: flex;
     justify-content: space-between;
